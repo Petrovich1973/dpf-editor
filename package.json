@@ -8,15 +8,10 @@
     "dev": "webpack --watch --colors | nodemon server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Petrovich1973/dpf-editor.git"
+    "type": "git"
   },
   "author": "tank",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Petrovich1973/dpf-editor/issues"
-  },
-  "homepage": "https://github.com/Petrovich1973/dpf-editor#readme",
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.26.0",
