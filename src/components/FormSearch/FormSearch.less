@@ -1,0 +1,35 @@
+@import (reference) "../App.less";
+
+#FormSearch {
+	padding: @padding;
+	background-color: lighten(@colorBlack, 86%);
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+	& * {
+		margin: 0;
+	}
+	.form-switch {	
+		padding: @padding;
+		padding-left: 0;
+		display: flex;
+		align-items: center;
+		h3 {
+			padding-right: @size;
+			white-space: nowrap;
+		}
+	}
+	.form {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-end;
+	}
+	.fieldBox {		
+		padding: @padding;
+		* {
+			display: block;
+			width: 100%;
+			white-space: nowrap;
+		}
+	}
+}

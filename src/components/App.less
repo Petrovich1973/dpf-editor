@@ -1,0 +1,85 @@
+@colorWhite: rgba(255, 255, 255, 1);
+@colorBlack: rgba(0, 0, 0, 1);
+
+@fontMain: 'Open Sans', sans-serif;
+@fontLight: 'Open Sans Light', sans-serif;
+@fontBold: 'Open Sans Bold', sans-serif;
+@fontItalic: 'Open Sans Italic', sans-serif;
+
+@size: 14px;
+
+@padding: (@size / 2) @size;
+
+html {
+	background-color: @colorBlack;
+}
+
+body {
+	width: 100vw;
+	min-height: 100vh;
+	background-color: darken(@colorWhite, 6%);
+	font-size: @size;
+	font-family: @fontMain;
+	color: lighten(@colorBlack, 34%);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+strong {
+	font-family: @fontBold;
+}
+label {
+	font-size: @size * .79;
+}
+
+textarea, 
+input, 
+button,
+select {
+    border: none;
+    background-color: darken(@colorWhite, 7%);
+    font-size: inherit;
+    line-height: 1;
+    padding: 0 @size;
+}
+input,
+button,
+select {
+    height: @size * 2;
+}
+button {
+	cursor: pointer;
+}
+[type=checkbox],
+[type=radio] {
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+}
+textarea:focus, 
+input:focus, 
+button:focus, 
+select:focus {
+    outline: none;
+}
+textarea:focus, 
+input:focus, 
+select:focus {
+    background-color: darken(@colorWhite, 3%);
+}
+
+.colorPrimary {
+	background-color: lighten(@colorBlack, 14%);
+	color: darken(@colorWhite, 14%);
+}
+
+.colorSecondary {
+	background-color: lighten(@colorBlack, 76%);
+	color: darken(@colorBlack, 36%);
+}
+
+.row {
+	margin: 0 -(@size);
+}
