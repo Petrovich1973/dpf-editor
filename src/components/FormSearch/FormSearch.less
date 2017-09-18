@@ -18,18 +18,34 @@
 			padding-right: @size;
 			white-space: nowrap;
 		}
+		.select {
+			width: 120px;
+		}
 	}
 	.form {
 		display: flex;
 		justify-content: flex-start;
 		align-items: flex-end;
 	}
-	.fieldBox {		
+	.fieldBox {
+		position: relative;
 		padding: @padding;
+		padding-top: 0;
+		margin-top: -5px;
 		* {
 			display: block;
 			width: 100%;
 			white-space: nowrap;
+		}
+		label {
+			margin-bottom: 2px;
+			color: lighten(@colorBlack, 54%);
+		}
+	}
+	.btnSend {
+		width: 12%;		
+		button {
+			min-width: 67px;
 		}
 	}
 }
