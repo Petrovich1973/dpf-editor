@@ -3,6 +3,7 @@ cors = require('cors'),
 bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
 app = express(),
+path = require('path'),
 port = process.env.PORT || 9191;
 
 var articles = [{
@@ -194,21 +195,25 @@ app.use( cors({ origin: '*' }) );
 app.use(express.static(__dirname + '/public'));
 
 app.get('/articles', function (req, res) {
-	res.send( JSON.stringify(articles) );
+	res.type('application/json').send( JSON.stringify(articles) );
 });
 
 app.get('/calculation', function (req, res) {
-	res.send( JSON.stringify(calculation) );
+	res.type('application/json').send( JSON.stringify(calculation) );
 });
 
 app.get('/gallery', function (req, res) {
-	res.send( JSON.stringify(gallery) );
+	res.type('application/json').send( JSON.stringify(gallery) );
 });
 
 app.get('/reviews', function (req, res) {
-	res.send( JSON.stringify(reviews) );
+	//res.send( JSON.stringify(reviews) );
+    res.type('application/json').send( JSON.stringify(reviews) );
 });
 
+app.get('*', function(req, res) {
+    res.sendFile(path.resolve(__dirname + '/public/', 'index.html'));
+})
 
 app.use(function(req, res, next) {
     res.status(404);
