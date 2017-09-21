@@ -1,23 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 
 import App from './components/App';
-import FormSearch from './components/FormSearch';
-import Header from './components/Header';
+import FormClients from './components/FormSearch/FormClients';
+import FormAccounts from './components/FormSearch/FormAccounts';
+import FormCard from './components/FormSearch/FormCard';
+import FormAccountSingle from './components/FormSearch/FormAccountSingle';
+
+import NotFound from './components/NotFound';
 
 import store from "./store";
 
 ReactDOM.render(
     <Provider store={store}>
-		<Router history={ browserHistory }>
-			<Route path="/" component={ App }>
-				<IndexRoute component={FormSearch}/>linktest
-				<Route path="/linktest" component={ Header } />
-			</Route>
-		</Router>
+        <Router history={browserHistory}>
+            <Route path="/" component={App}>
+                <IndexRedirect to="clients"/>
+                <Route path="/clients" component={FormClients}/>
+                <Route path="/accounts" component={FormAccounts}/>
+                <Route path="/card" component={FormCard}/>
+                <Route path="/account-single" component={FormAccountSingle}/>
+            </Route>
+            <Route path="*" component={NotFound} />
+        </Router>
     </Provider>,
     document.getElementById('app')
 );

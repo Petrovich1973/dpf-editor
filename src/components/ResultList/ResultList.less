@@ -1,0 +1,121 @@
+@import (reference) "../App.less";
+
+#ResultList {
+    padding-top: @size;
+    padding-left: 210px;
+    .table {
+    	.cell(@padding: @padding) {
+    		padding: @padding;
+    		text-transform: uppercase;
+    		text-align: left;
+    		font-weight: normal;
+    	}
+    	border-spacing: 0;
+		thead {
+	    	th {
+	    		padding: 0;
+		    	& > div {
+		    		.cell;
+		    		vertical-align: bottom;
+		    		font-size: @size * .67;
+		    		color: lighten(@colorBlack, 54%);
+		    	}
+	    	}
+		}
+		tbody {
+			&:nth-child(even) {
+				background-color: @colorWhite;
+			}
+	    	td {
+	    		padding: 0;
+		    	& > div {
+		    		.cell;
+		    		position: relative;
+		    		vertical-align: top;
+		    	}
+		    	.bullet {
+		    		width: 0;
+		    		height: 0;
+		    		padding: 0;
+		    		float: left;
+		    		color: @colorBlack;
+		    		.box {
+		    			position: absolute;
+		    			top: 0;
+		    			right: 100%;
+		    			padding: (@size / 2) 0;
+		    			padding-right: @size;
+		    			display: none;
+		    			justify-content: flex-end;
+		    			align-items: center;
+		    			cursor: pointer;
+		    			font-family: @fontBold;
+		    			-webkit-user-select: none;
+			    		.pointer {
+			    			font-size: @size * .6;
+			    			&.all {
+			    				display: none;
+			    			}
+			    		}
+			    		.angle {	    			
+			    			margin-left: @size / 2;
+			    		}
+		    		}
+		    	}
+	    	}
+		}
+		&.oneRow {
+			th > div {
+				padding-bottom: 0;
+			}
+			tbody.single:not(.detailOpen) {
+				 td div {
+				 	padding-top: 0;
+				 	padding-bottom: 0;
+				 }
+				 .box {
+				 	display: flex;
+				 	&:hover {
+		    			.all {
+		    				display: block;
+		    			}
+		    			.one {
+		    				display: none;
+		    			}		    			
+			    		.angle {	    			
+			    			transform: rotate(180deg);
+			    			transform-origin: center;
+		    			    margin-top: 1px;
+			    		}
+				 	}
+				 }			
+			}
+			tbody.detailOpen {
+				 td div {
+				 	padding-top: 0;
+				 	padding-bottom: 0;
+				 }
+				 .box {
+				 	display: flex;
+				 	&:hover {
+		    			.all {
+		    				display: block;
+		    			}
+		    			.one {
+		    				display: none;
+		    			}		    			
+			    		.angle {	    			
+			    			transform: rotate(90deg);
+			    			transform-origin: center;
+		    			    margin-top: 1px;
+			    		}
+				 	}
+				 }			
+			}
+		}
+    }
+    .detailInfo {
+    	display: none;
+    	padding: @padding;
+    }
+}

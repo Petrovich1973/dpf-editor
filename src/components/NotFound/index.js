@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './Footer.less';
+import './NotFound.less';
 
-class Footer extends React.Component {
+class NotFound extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initialState = {};
@@ -11,12 +11,12 @@ class Footer extends React.Component {
     render() {
         return (
             <div className="screen">
-                
+                NotFound
             </div>
         );
     }
 }
 
-Footer.displayName = 'Footer';
+NotFound.displayName = 'NotFound';
 
-export default Footer;
+export default NotFound;

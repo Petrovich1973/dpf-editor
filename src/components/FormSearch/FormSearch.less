@@ -6,7 +6,7 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-end;
-	& * {
+	* {
 		margin: 0;
 	}
 	.form-switch {	
@@ -26,26 +26,33 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: flex-end;
+		.fieldBox:first-child {
+			padding-left: 0;
+		}
 	}
 	.fieldBox {
 		position: relative;
-		padding: @padding;
+		padding: @size / 2;
 		padding-top: 0;
-		margin-top: -5px;
+		margin-top: 1px;
 		* {
 			display: block;
 			width: 100%;
 			white-space: nowrap;
+			min-width: 60px;
+			text-transform: uppercase;
 		}
 		label {
+			font-size: @size * .67;
 			margin-bottom: 2px;
 			color: lighten(@colorBlack, 54%);
 		}
 	}
 	.btnSend {
-		width: 12%;		
+		width: 16%;
+		min-width: 91px;
 		button {
-			min-width: 67px;
+			min-width: 72px;
 		}
 	}
 }

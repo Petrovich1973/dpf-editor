@@ -207,13 +207,13 @@ app.get('/gallery', function (req, res) {
 });
 
 app.get('/reviews', function (req, res) {
-	//res.send( JSON.stringify(reviews) );
     res.type('application/json').send( JSON.stringify(reviews) );
 });
 
-app.get('*', function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/public/', 'index.html'));
-})
+app.get('/*', function (req, res) {
+    res.sendFile( path.resolve(__dirname + '/public/', 'index.html') );
+});
+
 
 app.use(function(req, res, next) {
     res.status(404);

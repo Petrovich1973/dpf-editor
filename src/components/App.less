@@ -17,10 +17,11 @@ html {
 body {
 	width: 100vw;
 	min-height: 100vh;
-	background-color: darken(@colorWhite, 6%);
+	background-color: darken(@colorWhite, 4%);
 	font-size: @size;
 	font-family: @fontMain;
 	color: lighten(@colorBlack, 34%);
+    overflow-x: hidden;
 }
 
 * {
@@ -39,7 +40,7 @@ input,
 button,
 select {
     border: none;
-    background-color: darken(@colorWhite, 7%);
+    background-color: darken(@colorWhite, 5%);
     font-size: inherit;
     line-height: 1;
     padding: 0 @size;
@@ -51,6 +52,12 @@ select {
 }
 button {
 	cursor: pointer;
+    &:hover {
+        transform: scale(1.02);
+    }
+    &:active {
+        transform: scale(.96);
+    }
 }
 [type=checkbox],
 [type=radio] {
@@ -73,9 +80,6 @@ input.errorInput {
 	background-color: #f4d5d5;
 }
 
-#App {
-	overflow-x: hidden;
-}
 
 .colorPrimary {
 	background-color: lighten(@colorBlack, 14%);
