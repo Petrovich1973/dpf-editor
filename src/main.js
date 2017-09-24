@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 
 import App from './components/App';
 import FormClients from './components/FormSearch/FormClients';
@@ -22,9 +22,9 @@ ReactDOM.render(
                 <Route path="/clients" component={FormClients}/>
                 <Route path="/accounts" component={FormAccounts}/>
                 <Route path="/card" component={FormCard}/>
-                <Route path="/account-single" component={FormAccountSingle}/>
+                <Route path="/account" component={FormAccountSingle}/>
             </Route>
-            <Route path="*" component={NotFound} />
+            <Route path="*" component={NotFound}/>
         </Router>
     </Provider>,
     document.getElementById('app')

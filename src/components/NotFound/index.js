@@ -10,8 +10,8 @@ class NotFound extends React.Component {
 
     render() {
         return (
-            <div className="screen">
-                NotFound
+            <div className="screen" id="NotFound">
+                <h1><i class="fa fa-exclamation-circle fa-4x" aria-hidden="true"/><br/>404 Not Found</h1>
             </div>
         );
     }

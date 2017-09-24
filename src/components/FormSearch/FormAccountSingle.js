@@ -44,7 +44,7 @@ class FormAccountSingle extends React.Component {
                 </div>
 
                 <div className="fieldBox btnReset">
-                    <button type="reset" className="colorSecondary">Очистить</button>
+                    <button type="reset" className="colorSecondary"><i className="fa fa-close"/></button>
                 </div>
             </form>
         );

@@ -33,6 +33,7 @@ strong {
 }
 label {
 	font-size: @size * .79;
+	-webkit-user-select: none;
 }
 
 textarea, 
@@ -42,6 +43,7 @@ select {
     border: none;
     background-color: darken(@colorWhite, 5%);
     font-size: inherit;
+    font-family: inherit;
     line-height: 1;
     padding: 0 @size;
 }
@@ -64,6 +66,7 @@ button {
 	background-color: transparent;
 	padding: 0;
 	margin: 0;
+    height: @size;
 }
 textarea:focus, 
 input:focus, 

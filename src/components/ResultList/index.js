@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import { fetchReviews } from '../../actions/reviewsActions';
 
-import ListClients from './ListClients';
+import Clients from './Clients';
+import Accounts from './Accounts';
 
 import './ResultList.less';
 
@@ -12,7 +13,7 @@ import './ResultList.less';
         reviews: store.reviews.reviews
     };
 })
-
+//window.getSelection().toString().length ? 'yes' : 'not' //window.getSelection().empty()
 class ResultList extends React.Component {
     constructor(props) {
         super(props);
@@ -28,8 +29,9 @@ class ResultList extends React.Component {
         const { reviews } = this.props;
 
         return (
-            <div className="screen" id="ResultList">                
-                <ListClients/>
+            <div className="screen" id="ResultList">
+                <Clients/>
+                <Accounts/>
             </div>
         );
     }

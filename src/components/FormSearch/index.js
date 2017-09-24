@@ -26,16 +26,8 @@ class FormSearch extends React.Component {
         this.props.dispatch(fetchReviews());
     }
 
-    handleChangeSelectFormSearch(e) {        
+    handleChangeSelectFormSearch(e) {     
         let value = e.target.value;
-        // console.log(this);
-        // console.log(this.props.path);
-        // this.setState({
-        //     form_search: {
-        //         ...this.state.form_search,
-        //         value: value
-        //     }
-        // })
         browserHistory.push(value);
     }
 
@@ -59,12 +51,13 @@ class FormSearch extends React.Component {
                     <h3>Поиск</h3>
                     <select 
                     className="select"
-                    value={ valueFormSearch }
+                    name="switch"
+                    value={valueFormSearch}
                     onChange={this.handleChangeSelectFormSearch}>
-                        <option value={'/clients'}>клиентов</option>
-                        <option value={'/accounts'}>счетов</option>
-                        <option value={'/card'}>карты</option>
-                        <option value={'/account-single'}>счёта</option>
+                        <option value="/clients">клиентов</option>
+                        <option value="/accounts">счетов</option>
+                        <option value="/card">карты</option>
+                        <option value="/account">счёта</option>
                     </select>
                 </div>
 

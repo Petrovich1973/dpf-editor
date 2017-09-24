@@ -27,9 +27,11 @@ class FormClients extends React.Component {
                   'c': '[0-2]'
                 },
                 error: false
-            }
+            },
+            inputs: {}
         };
         this.handleChangeDate = this.handleChangeDate.bind(this);
+        this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
     }
 
@@ -68,7 +70,19 @@ class FormClients extends React.Component {
 
     handleSubmitForm(e) {
         e.preventDefault();
+        console.log(e.form)
         return false;
+    }
+
+    handleChangeInput(e) {
+        let name = e.target.name,
+            value = e.target.value;
+        this.setState({
+            inputs: {
+                ...this.state.inputs,
+                [name]: value
+            }
+        })
     }
 
     render() {
@@ -79,33 +93,32 @@ class FormClients extends React.Component {
             <form className="form" onSubmit={this.handleSubmitForm}>
                 <div className="fieldBox">
                     <label>Фамилия</label>
-                    <input type="text" autoComplete="off"/>
+                    <input type="text" name="name1" onChange={this.handleChangeInput} autoComplete="off"/>
                 </div>
 
                 <div className="fieldBox">
                     <label>Имя</label>
-                    <input type="text" autoComplete="off"/>
+                    <input type="text" name="name2" onChange={this.handleChangeInput} autoComplete="off"/>
                 </div>
 
                 <div className="fieldBox">
                     <label>Отчество</label>
-                    <input type="text" autoComplete="off"/>
+                    <input type="text" name="name3" onChange={this.handleChangeInput} autoComplete="off"/>
                 </div>
 
                 <div className="fieldBox">
                     <label>Серия</label>
-                    <InputMask type="text" mask="9999" maskChar="_" style={{width: '60px'}} />
+                    <InputMask name="name4" onChange={this.handleChangeInput} type="text" mask="9999" maskChar="_" style={{width: '60px'}} />
                 </div>
 
                 <div className="fieldBox">
                     <label>Номер</label>
-                    <InputMask type="text" mask="999999" maskChar="_" style={{width: '76px'}} />
+                    <InputMask name="name5" onChange={this.handleChangeInput} type="text" mask="999999" maskChar="_" style={{width: '76px'}} />
                 </div>
 
                 <div className="fieldBox">
                     <label>Дата рождения</label>
                     <InputMask
-                    {...this.props}
                     type="text"
                     value={this.state.date.value}
                     onChange={this.handleChangeDate}
@@ -121,7 +134,7 @@ class FormClients extends React.Component {
                 </div>
 
                 <div className="fieldBox btnReset">
-                    <button type="reset" className="colorSecondary">Очистить</button>
+                    <button type="reset" className="colorSecondary"><i className="fa fa-close"/></button>
                 </div>
             </form>
         );
