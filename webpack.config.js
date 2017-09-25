@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 // const CleanCSSPlugin = require("less-plugin-clean-css");
-
+// webpack@3.6.0
 module.exports = {
     entry: "./src/main.js",
     output: {
@@ -31,7 +31,7 @@ module.exports = {
                 })
             },
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
                 query: {

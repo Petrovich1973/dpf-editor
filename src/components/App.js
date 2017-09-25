@@ -18,12 +18,15 @@ class App extends React.Component {
     render() {
         return (
             <div id="App">
+
                 <Header />
+
                 <FormSearch formComponent={this.props.children} />
 
                 <ResultList/>
 
                 <Footer />
+                
             </div>
         );
     }

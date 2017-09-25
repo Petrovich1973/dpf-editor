@@ -13,7 +13,7 @@ class Pagination extends React.Component {
             <div className="pagination">
                 <div>5 из 120</div>
                 <ul>
-                    <li className="colorPrimary">1</li>
+                    <li className="setCurrent">1</li>
                     <li>2</li>
                     <li>3</li>
                     <li className="dotted">...</li>

@@ -77,9 +77,11 @@ class DetailClient extends React.Component {
         let el = e.target;
         setTimeout(function(){
             let input = el.querySelector('input');
-            input.focus();
-            let length = input.value.length;  
-            input.setSelectionRange(length, length);
+            if(input != null) {
+                input.focus();
+                let length = input.value.length;  
+                input.setSelectionRange(length, length);
+            }
         }, 100);
     }
 
@@ -109,8 +111,14 @@ class DetailClient extends React.Component {
             <div className="detailInfo">
 
                 <div className={ config.edit ? 'detailControl show' : 'detailControl hide' }>
-                    <button className="colorSecondary" onClick={this.handleCancel}>Отменить</button>
-                    <button className="colorPrimary" onClick={this.handleSave}>Сохранить</button>
+                    <button 
+                    className="btnReset"
+                    title="Отменить изменения"
+                    onClick={this.handleCancel}><i className="fa fa-close fa-2x"/></button>
+                    <button 
+                    className="setAction"
+                    title="Сохранить изменения"
+                    onClick={this.handleSave}>Сохранить</button>
                 </div>
 
                 <div className="detailMainLine">

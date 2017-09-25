@@ -2,7 +2,8 @@
 
 #FormSearch {
 	padding: @padding;
-	background-color: lighten(@colorBlack, 86%);
+	background-color: @colorPrimary;
+	color: @colorWhite;
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-end;
@@ -39,13 +40,12 @@
 			display: block;
 			width: 100%;
 			white-space: nowrap;
-			/* min-width: 60px; */
 			text-transform: uppercase;
 		}
 		label {
-			font-size: @size * .67;
+			font-size: @size * .75;
 			margin-bottom: 2px;
-			color: lighten(@colorBlack, 54%);
+			text-transform: none;
 		}
 	}
 	.btnSend {
@@ -53,6 +53,13 @@
 		min-width: 91px;
 		button {
 			min-width: 72px;
+			text-transform: none;
+		}
+	}
+	.btnReset {
+		button {
+			background-color: transparent;
+			color: @colorWhite;
 		}
 	}
 }

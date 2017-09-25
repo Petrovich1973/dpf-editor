@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-
+//webpack@1.12.9
 module.exports = {
     entry: "./src/main.js",
     output: {
@@ -41,7 +41,7 @@ module.exports = {
                 loader: 'babel-loader',
                 query: {
                     presets: ['react', 'es2015', 'stage-0'],
-                    plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
+                    plugins: ['transform-class-properties', 'transform-decorators-legacy']
                 }
             },
             {

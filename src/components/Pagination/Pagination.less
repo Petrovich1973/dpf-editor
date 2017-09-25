@@ -24,16 +24,16 @@
             margin: 0 1px;
             cursor: default;
             &:not([class]) {
-                background-color: lighten(@colorBlack, 86%);
+                background-color: fade(@colorBlack, 7%);
                 cursor: pointer;
                 &:hover {
                     transform: scale(1.03);
-                    background-color: lighten(@colorBlack, 46%);
+                    background-color: fade(@colorBlack, 46%);
                     color: @colorWhite;
                 }
                 &:active {
                     transform: scale(.98);
-                    background-color: lighten(@colorBlack, 26%);
+                    background-color: fade(@colorBlack, 26%);
                 }
             }            
             &.dotted {

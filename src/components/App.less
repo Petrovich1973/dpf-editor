@@ -1,5 +1,9 @@
 @colorWhite: rgba(255, 255, 255, 1);
 @colorBlack: rgba(0, 0, 0, 1);
+@colorBackground: rgba(250, 250, 250, 1);
+@colorPrimary: rgba(26, 159, 41, 1);
+@colorSecondary: rgba(138, 138, 138, 1);
+@colorAction: rgba(255, 156, 0, 1);
 
 @fontMain: 'Open Sans', sans-serif;
 @fontLight: 'Open Sans Light', sans-serif;
@@ -17,10 +21,10 @@ html {
 body {
 	width: 100vw;
 	min-height: 100vh;
-	background-color: darken(@colorWhite, 4%);
+	background-color: @colorBackground;
 	font-size: @size;
 	font-family: @fontMain;
-	color: lighten(@colorBlack, 34%);
+	color: @colorBlack;
     overflow-x: hidden;
 }
 
@@ -32,7 +36,7 @@ strong {
 	font-family: @fontBold;
 }
 label {
-	font-size: @size * .79;
+	font-size: @size * .75;
 	-webkit-user-select: none;
 }
 
@@ -67,6 +71,7 @@ button {
 	padding: 0;
 	margin: 0;
     height: @size;
+    width: @size;
 }
 textarea:focus, 
 input:focus, 
@@ -84,14 +89,19 @@ input.errorInput {
 }
 
 
-.colorPrimary {
-	background-color: lighten(@colorBlack, 14%);
-	color: darken(@colorWhite, 14%);
+.setAction {
+	background-color: @colorAction;
+	color: @colorWhite;
 }
 
-.colorSecondary {
-	background-color: lighten(@colorBlack, 76%);
-	color: darken(@colorBlack, 36%);
+.setSecondary {
+	background-color: @colorSecondary;
+	color: @colorBlack;
+}
+
+.setCurrent {
+	background-color: @colorBlack;
+	color: @colorWhite;
 }
 
 .row {

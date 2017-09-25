@@ -40,11 +40,11 @@ class FormCard extends React.Component {
                 </div>
 
                 <div className="fieldBox btnSend">
-                    <button type="submit" className="colorPrimary">Найти</button>
+                    <button type="submit" className="setAction">Найти</button>
                 </div>
 
                 <div className="fieldBox btnReset">
-                    <button type="reset" className="colorSecondary"><i className="fa fa-close"/></button>
+                    <button type="reset" title="Очистить поиск"><i className="fa fa-close fa-2x"/></button>
                 </div>
             </form>
         );
