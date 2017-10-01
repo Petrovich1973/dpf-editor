@@ -6,185 +6,84 @@ app = express(),
 path = require('path'),
 port = process.env.PORT || 9191;
 
-var articles = [{
-        id: 1, 
-        isActive: true, 
-        name: 'Смета', 
-        intro: null, 
-        detail: '<h4>1 Руководитель компании IdealSauna Протасов Александр</h4><p>«Главный принцип работы нашей компании – построение доверительных отношений с клиентом.</p><p>Что мы для этого делаем? Конечно, даем гарантии.</p><p>Я лично предоставляю финансовое поручительство как физическое лицо. Такая ответственность владельца бизнеса гораздо серьезнее, чем формальная ответственность юридического лица. Кроме того, я лично контролирую все стадии каждого проекта.»</p>'
-    },{
-        id: 2, 
-        isActive: false, 
-        name: 'Замер', 
-        intro: '(выезд специалиста на объект,для создания проекта и уточнения сметы)', 
-        detail: '<img src="/assets/images/BeforeBuildSauna/photo.jpg" style="float: left; margin: 0px 15px 15px 0px;" /> <h4>Руководитель компании IdealSauna Протасов Александр</h4><p>«Главный принцип работы нашей компании – построение доверительных отношений с клиентом.</p><p>Что мы для этого делаем? Конечно, даем гарантии.</p><p>Я лично предоставляю финансовое поручительство как физическое лицо. Такая ответственность владельца бизнеса гораздо серьезнее, чем формальная ответственность юридического лица. Кроме того, я лично контролирую все стадии каждого проекта.»</p>'
-    },{
-        id: 3, 
-        isActive: false, 
-        name: 'Проект', 
-        intro: '(чертеж выполненный тушью)', 
-        detail: '<img src="/assets/images/BeforeBuildSauna/photo.jpg" style="float: left; margin: 0px 15px 15px 0px;" /> <h4>3 Руководитель компании IdealSauna Протасов Александр</h4><p>«Главный принцип работы нашей компании – построение доверительных отношений с клиентом.</p><p>Что мы для этого делаем? Конечно, даем гарантии.</p><p>Я лично предоставляю финансовое поручительство как физическое лицо. Такая ответственность владельца бизнеса гораздо серьезнее, чем формальная ответственность юридического лица. Кроме того, я лично контролирую все стадии каждого проекта.»</p>'
-    },{
-        id: 4, 
-        isActive: false, 
-        name: 'Договор', 
-        intro: '(проверенный юристами и заверенный натариусом)', 
-        detail: '<h4>4 Руководитель компании IdealSauna Протасов Александр</h4><p>«Главный принцип работы нашей компании – построение доверительных отношений с клиентом.</p><p>Что мы для этого делаем? Конечно, даем гарантии.</p><p>Я лично предоставляю финансовое поручительство как физическое лицо. Такая ответственность владельца бизнеса гораздо серьезнее, чем формальная ответственность юридического лица. Кроме того, я лично контролирую все стадии каждого проекта.»</p>'
-    },{
-        id: 5, 
-        isActive: false, 
-        name: 'Строительство', 
-        intro: '(вся спец техника и квалифицированные рабочие)', 
-        detail: '<img src="/assets/images/BeforeBuildSauna/photo.jpg" style="float: left; margin: 0px 15px 15px 0px;" /> <h4>5 Руководитель компании IdealSauna Протасов Александр</h4><p>«Главный принцип работы нашей компании – построение доверительных отношений с клиентом.</p><p>Что мы для этого делаем? Конечно, даем гарантии.</p><p>Я лично предоставляю финансовое поручительство как физическое лицо. Такая ответственность владельца бизнеса гораздо серьезнее, чем формальная ответственность юридического лица. Кроме того, я лично контролирую все стадии каждого проекта.»</p>'
-    }];
-
-var calculation = {
-parameters: {
-	long: 200,
-	width: 200,
-	height: 200
-},
-materials: {
-    walls: [{
-        id: 1, selected: true, name: 'Канадский кедр', image: '/assets/images/controllerPics/01.jpg', price: 2300
-    },
-    {
-        id: 2, selected: false, name: 'Сибирский дуб', image: '/assets/images/controllerPics/02.jpg', price: 700
-    },
-    {
-        id: 3, selected: false, name: 'Сосна', image: '/assets/images/controllerPics/03.jpg', price: 900
-    }],
-	rack: [{
-        id: 1, selected: true, name: 'Прямые', image: '/assets/images/controllerPics/02.jpg', price: 300
-    },
-    {
-        id: 2, selected: false, name: 'Каскадные', image: '/assets/images/controllerPics/03.jpg', price: 500
-    },
-    {
-        id: 3, selected: false, name: 'Вертикальные', image: '/assets/images/controllerPics/04.jpg', price: 800
-    }],
-	furnace: [{
-        id: 1, selected: true, name: 'Деревяные', image: '/assets/images/controllerPics/03.jpg', price: 30000
-    },
-    {
-        id: 2, selected: false, name: 'Электрические', image: '/assets/images/controllerPics/04.jpg', price: 50000
-    }],
-	stones: [{
-        id: 1, selected: true, name: 'Подарок', image: '/assets/images/controllerPics/04.jpg', price: 0
-    },
-    {
-        id: 2, selected: false, name: 'Эльфийские', image: '/assets/images/controllerPics/05.jpg', price: 5000
-    },
-    {
-        id: 3, selected: false, name: 'Астеройдные', image: '/assets/images/controllerPics/06.jpg', price: 10000
-    }],
-	lighting: [{
-        id: 1, selected: true, name: 'Светильник', image: '/assets/images/controllerPics/05.jpg', price: 4000
-    },
-    {
-        id: 2, selected: false, name: 'Бра', image: '/assets/images/controllerPics/03.jpg', price: 5000
-    },
-    {
-        id: 3, selected: false, name: 'Торшер', image: '/assets/images/controllerPics/06.jpg', price: 6000
-    }],
-	furnishBehind: [{
-        id: 1, selected: true, name: 'Талькомагнезит', image: '/assets/images/controllerPics/06.jpg', price: 4000
-    },
-    {
-        id: 2, selected: false, name: 'Талькохлорит', image: '/assets/images/controllerPics/02.jpg', price: 5000
-    }]
-},
-config: 3000
-};
-
-var gallery = [{
+var clients = [{
         id: 1,
-        type: 'Сауна',
-        name: 'Престиж',
-        photo: '/assets/images/OurRealizedProjects/01.jpg',
-        params: {
-            height: [1.9, 2.5],
-            area: [2, 16],
-            period: [7, 20],
-            price: [50]
-        }
+        surname: 'Староборецкий',
+        name: 'Виктор',
+        patronymic: 'Петрович',
+        dul: 'Паспорт',
+        docNamber: '1234',
+        docSerial: '123456',
+        dateOfBirth: '19.03.1974'
     },{
         id: 2,
-        type: 'Сауна',
-        name: 'Пират',
-        photo: '/assets/images/OurRealizedProjects/02.jpg',
-        params: {
-            height: [1.7, 2.8],
-            area: [5, 10],
-            period: [17, 30],
-            price: [150]
-        }
+        surname: 'Староборецкий',
+        name: 'Виктор',
+        patronymic: 'Владимирович',
+        dul: 'Паспорт',
+        docNamber: '2341',
+        docSerial: '654567',
+        dateOfBirth: '23.01.1977'
     },{
         id: 3,
-        type: 'Сауна',
-        name: 'Гурия',
-        photo: '/assets/images/OurRealizedProjects/03.jpg',
-        params: {
-            height: [2.4, 3],
-            area: [8, 16],
-            period: [27, 41],
-            price: [200]
-        }
+        surname: 'Староборецкий',
+        name: 'Виктор',
+        patronymic: 'Михайлович',
+        dul: 'Паспорт',
+        docNamber: '5654',
+        docSerial: '876543',
+        dateOfBirth: '29.11.1986'
     },{
         id: 4,
-        type: 'Сауна',
-        name: 'Комфорт',
-        photo: '/assets/images/OurRealizedProjects/04.jpg',
-        params: {
-            height: [1.5, 3.5],
-            area: [20, 26],
-            period: [35, 50],
-            price: [450]
-        }
+        surname: 'Староборецкий',
+        name: 'Виктор',
+        patronymic: 'Семенович',
+        dul: 'Паспорт',
+        docNamber: '9876',
+        docSerial: '670211',
+        dateOfBirth: '31.10.1993'
     },{
         id: 5,
-        type: 'Баня',
-        name: 'Бревно',
-        photo: '/assets/images/OurRealizedProjects/05.jpg',
-        params: {
-            height: [1.2, 2.7],
-            area: [2, 10],
-            period: [8, 14],
-            price: [80]
-        }
+        surname: 'Староборецкий',
+        name: 'Виктор',
+        patronymic: 'Андреевич',
+        dul: 'Паспорт',
+        docNamber: '551209',
+        docSerial: '671190',
+        dateOfBirth: '03.03.1980'
     }];
 
-var reviews = [{
-    id: 1, 
-    isActive: true, 
-    image: null, 
-    name: 'Иван Иванович', 
-    message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
-},{
-    id: 2, 
-    isActive: false, 
-    image: null, 
-    name: 'Аленушка', 
-    message: 'Жили-были старик да старуха, у них была дочка Алёнушка да сынок Иванушка. Старик со старухой умерли. Остались Аленушка да Иванушка одни-одинешеньки. Пошла Аленушка на работу и братца с собой взяла. Идут они по дальнему пути, по широкому полю, и захотелось Иванушке пить.'
-},{
-    id: 3, 
-    isActive: false, 
-    image: '/assets/images/ScreenReviews/01.jpg', 
-    name: null, 
-    message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'
-},{
-    id: 4, 
-    isActive: false, 
-    image: '/assets/images/ScreenReviews/04.jpg', 
-    name: 'Елена Дмитриевна', 
-    message: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
-},{
-    id: 5, 
-    isActive: false, 
-    image: '/assets/images/ScreenReviews/01.jpg', 
-    name: 'Константин Константинович', 
-    message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.'
-}];
+var accounts = [{
+        id: 1,
+        number: '000 00000 00 0000 000000', 
+        code: '149', 
+        productType: '101',
+        accountType: '54',
+        accountSubType: '2',
+        currency: '840',
+        dateEnd: '19.03.2021',
+        productStatus: 'Активен'
+    },{
+        id: 2,
+        number: '100 23000 34 0000 456000', 
+        code: '148', 
+        productType: '101',
+        accountType: '54',
+        accountSubType: '2',
+        currency: '810',
+        dateEnd: '02.08.2024',
+        productStatus: 'Активен'
+    },{
+        id: 3,
+        number: '230 65400 77 8000 123000', 
+        code: '149', 
+        productType: '103',
+        accountType: '55',
+        accountSubType: '3',
+        currency: '810',
+        dateEnd: '02.08.2023',
+        productStatus: 'Не активен'
+    }];
 
 app.use( bodyParser.json() );
 
@@ -194,20 +93,28 @@ app.use( cors({ origin: '*' }) );
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/articles', function (req, res) {
-	res.type('application/json').send( JSON.stringify(articles) );
+app.get('/api/clients', function (req, res) {
+    res.type('application/json').send( JSON.stringify(clients) );
 });
 
-app.get('/calculation', function (req, res) {
-	res.type('application/json').send( JSON.stringify(calculation) );
+app.get('/api/clients/:uid', function (req, res) {
+    if(clients[req.params.uid]) {
+        res.type('application/json').send( JSON.stringify(clients[req.params.uid]) );
+    } else {
+        res.type('application/json').send(400, JSON.stringify({message: 'Такого id нет'}) );
+    }    
 });
 
-app.get('/gallery', function (req, res) {
-	res.type('application/json').send( JSON.stringify(gallery) );
+app.get('/api/accounts', function (req, res) {
+    res.type('application/json').send( JSON.stringify(accounts) );
 });
 
-app.get('/reviews', function (req, res) {
-    res.type('application/json').send( JSON.stringify(reviews) );
+app.get('/api/accounts/:uid', function (req, res) {
+    if(accounts[req.params.uid]) {
+        res.type('application/json').send( JSON.stringify(accounts[req.params.uid]) );
+    } else {
+        res.type('application/json').send(400, JSON.stringify({message: 'Такого id нет'}) );
+    }    
 });
 
 app.get(/.*/, function (req, res) {

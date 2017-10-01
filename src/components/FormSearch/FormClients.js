@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import InputMask from 'react-input-mask';
 
 import { changeField, resetFields } from "../../actions/searchActions";
+import { fetchClients } from "../../actions/clientsActions";
 
 @connect((store) => {
     return {
@@ -64,6 +65,7 @@ class FormClients extends React.Component {
 
     handleSubmitForm(e) {
         e.preventDefault();
+        this.props.dispatch(fetchClients());
         return false;
     }
 

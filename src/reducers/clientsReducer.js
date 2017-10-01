@@ -1,50 +1,5 @@
 export default function reducer(state = {
-    clients: [{
-        id: 1,
-        surname: 'Староборецкий',
-        name: 'Виктор',
-        patronymic: 'Петрович',
-        dul: 'Паспорт',
-        docNamber: '1234',
-        docSerial: '123456',
-        dateOfBirth: '19.03.1974'
-    },{
-        id: 2,
-        surname: 'Староборецкий',
-        name: 'Виктор',
-        patronymic: 'Владимирович',
-        dul: 'Паспорт',
-        docNamber: '2341',
-        docSerial: '654567',
-        dateOfBirth: '23.01.1977'
-    },{
-        id: 3,
-        surname: 'Староборецкий',
-        name: 'Виктор',
-        patronymic: 'Михайлович',
-        dul: 'Паспорт',
-        docNamber: '5654',
-        docSerial: '876543',
-        dateOfBirth: '29.11.1986'
-    },{
-        id: 4,
-        surname: 'Староборецкий',
-        name: 'Виктор',
-        patronymic: 'Семенович',
-        dul: 'Паспорт',
-        docNamber: '9876',
-        docSerial: '670211',
-        dateOfBirth: '31.10.1993'
-    },{
-        id: 5,
-        surname: 'Староборецкий',
-        name: 'Виктор',
-        patronymic: 'Андреевич',
-        dul: 'Паспорт',
-        docNamber: '551209',
-        docSerial: '671190',
-        dateOfBirth: '03.03.1980'
-    }],
+    clients: [],
     config: {
         status: 'list',
         detail: false,
@@ -57,7 +12,7 @@ export default function reducer(state = {
 
     switch (action.type) {
         case "FETCH_CLIENTS": {
-            return { ...state, fetching: true };
+            return { ...state, fetching: true, fetched: false };
         }
         case "FETCH_CLIENTS_REJECTED": {
             return { ...state, fetching: false, error: action.payload };
@@ -68,6 +23,15 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: true,
                 clients: action.payload
+            };
+        }
+        case "FETCH_CLIENT_FULFILLED": {
+            state.clients = [];
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                clients: state.clients.concat(action.payload)
             };
         }
         case "UPDATE_CONFIG_CLIENTS": {

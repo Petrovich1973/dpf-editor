@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Clients from './Clients';
-import Accounts from './Accounts';
+import ListClients from './ListClients';
+import DetailClient from '../Detail/DetailClient';
+import ListAccounts from './ListAccounts';
 import ProductNavigation from './ProductNavigation';
 
 import './ResultList.less';
@@ -20,8 +21,9 @@ class ResultList extends React.Component {
 
         return (
             <div className="screen" id="ResultList">
-                <Clients/>
-                <Accounts/>
+                <ListClients />
+                <DetailClient />
+                <ListAccounts />
                 <ProductNavigation />
             </div>
         );
