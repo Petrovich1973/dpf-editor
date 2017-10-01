@@ -141,5 +141,33 @@
 				 }			
 			}
 		}
-    }
+    }    
+}
+
+#ProductNavigation {
+	.list {
+		list-style: none;
+		margin: 0 -(@size / 2);
+		padding: 0;
+		display: flex;
+		-webkit-user-select: none;
+		li {
+			margin: 0 (@size / 2);
+			text-transform: uppercase;
+			font-size: @size * .86;
+			font-family: @fontBold;
+			cursor: pointer;
+			color: @colorAction;
+			span {
+				display: block;
+				border-bottom: 2px solid transparent;
+			}
+			&.active {
+				color: @colorBlack;
+				span {
+					border-color: @colorBlack;
+				}				
+			}
+		}
+	}
 }

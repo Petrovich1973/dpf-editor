@@ -1,93 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchReviews } from '../../actions/reviewsActions';
+import { updateConfigAccounts } from '../../actions/accountsActions';
 
 import Pagination from '../Pagination';
 import DetailAccount from '../Detail/DetailAccount';
 
-import './ResultList.less';
-
 @connect((store) => {
     return {
-        reviews: store.reviews.reviews
+        accounts: store.accounts
     };
 })
 
 class Accounts extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.initialState = {
-            listAccounts: [{
-                id: 1,
-                number: '000 00000 00 0000 000000', 
-                code: '149', 
-                productType: '101',
-                accountType: '54',
-                accountSubType: '2',
-                currency: '840',
-                dateEnd: '19.03.2021',
-                productStatus: 'Активен'
-            },{
-                id: 2,
-                number: '100 23000 34 0000 456000', 
-                code: '148', 
-                productType: '101',
-                accountType: '54',
-                accountSubType: '2',
-                currency: '810',
-                dateEnd: '02.08.2024',
-                productStatus: 'Активен'
-            },{
-                id: 3,
-                number: '230 65400 77 8000 123000', 
-                code: '149', 
-                productType: '103',
-                accountType: '55',
-                accountSubType: '3',
-                currency: '810',
-                dateEnd: '02.08.2023',
-                productStatus: 'Не активен'
-            }],
-            config: {
-                status: 'list',
-                detail: false,
-                selected: null
-            }
-        };
+        this.state = this.initialState = {};
+
         this.handleClick = this.handleClick.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
         this.toList = this.toList.bind(this);
     }
 
-    componentWillMount() {
-        this.props.dispatch(fetchReviews());
-    }
-
     toList() {
-        this.setState({
-            config: {
-                ...this.initialState.config
-            }
-        });
+        let newConfig = {
+            status: 'list',
+            detail: false,
+            selected: null
+        }
+        this.props.dispatch(updateConfigAccounts(newConfig));
     }
 
     isParentHas(el) {
+        const { accounts } = this.props;
+        if(accounts.accounts.length === 1) {
+            return false
+        }
         return el.parents('.bullet').length;
-
     }
 
     handleClick(e, m) {
         if(!window.getSelection().toString().length) {
             if( this.isParentHas($(e.target)) ) {
                 this.toList();
-            } else if(this.state.config.status === 'single') {
-                this.setState({
-                    config: {
-                        ...this.state.config,
-                        detail: !this.state.config.detail
-                    }
-                });
+            } else if(this.props.accounts.config.status === 'single') {
+                let newConfig = {
+                    detail: !this.props.accounts.config.detail
+                }
+                this.props.dispatch(updateConfigAccounts(newConfig));
             }
         }
     }
@@ -102,30 +62,37 @@ class Accounts extends React.Component {
         } else if (document.selection) {
             document.selection.empty();
         }
-        this.setState({
-            config: {
-                ...this.state.config,
-                status: 'single',
-                selected: m.id
-            }
-        });
+        let newConfig = {
+            status: 'single',
+            selected: m.id
+        }
+        this.props.dispatch(updateConfigAccounts(newConfig));
     }
 
     updateList() {
-        const { listAccounts, config } = this.state;
+        const { accounts } = this.props;
         const bullet = (
                 <div className="bullet">
                     <div className="box">
-                        <span className="pointer all">Список счетов</span>
-                        <span className="pointer one">Счет</span>
-                        { !config.detail ? <i className="angle fa fa-angle-right"/> : <i className="angle fa fa-angle-down"/> }
+                        {accounts.accounts.length > 1 ? <span className="pointer all">Список счетов</span> : null}                        
+                        <span className="pointer one">Счёт</span>
+                        { !accounts.config.detail ? <i className="angle fa fa-angle-right"/> : <i className="angle fa fa-angle-down"/> }
                     </div>
                 </div>
             );
-        let list = listAccounts.map((m, i) => {
+        if(!accounts.accounts.length) {
+            return null
+        }
+        let list = accounts.accounts.map((m, i) => {
             return (
                 <tbody 
-                className={ config.selected ? config.selected === m.id ? config.detail ? 'single detailOpen' : 'single' : 'hideRow' : '' }
+                className={ accounts.config.selected ? 
+                    accounts.config.selected === m.id ? 
+                    accounts.config.detail ? 
+                    'single detailOpen' : 
+                    'single' : 
+                    'hideRow' : 
+                    '' }
                 key={i}
                 onDoubleClick={ (e) => this.handleDoubleClick(e, m) }
                 onClick={ (e) => this.handleClick(e, m) }>
@@ -145,13 +112,13 @@ class Accounts extends React.Component {
                 </tbody>
             )
         });
-        return listAccounts.length ? list : null;
+        return list;
 
     }    
 
     render() {
 
-        const { status, detail } = this.state.config;
+        const { status, detail } = this.props.accounts.config;
 
         return (
             <div className="screen" id="Accounts">

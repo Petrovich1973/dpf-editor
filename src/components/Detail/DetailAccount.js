@@ -1,16 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchReviews } from '../../actions/reviewsActions';
-
-import './Detail.less';
-
-@connect((store) => {
-    return {
-        reviews: store.reviews.reviews
-    };
-})
-
 class AccountClient extends React.Component {
     constructor(props) {
         super(props);
@@ -23,10 +13,6 @@ class AccountClient extends React.Component {
             }
         };
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
-    }
-
-    componentWillMount() {
-        this.props.dispatch(fetchReviews());
     }
 
     handleChangeCheckbox(e) {

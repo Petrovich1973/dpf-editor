@@ -5,14 +5,14 @@ import { changeField, resetFields } from "../../actions/searchActions";
 
 @connect((store) => {
     return {
-        field: store.search.card
+        field: store.search.account
     };
 })
 
-class FormCard extends React.Component {
+class FormAccount extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.initialState = {};      
+        this.state = this.initialState = {};       
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
         this.resetFields = this.resetFields.bind(this);
@@ -26,26 +26,26 @@ class FormCard extends React.Component {
     handleChangeInput(e) {
         let name = e.target.name,
             value = e.target.value;
-        this.props.dispatch(changeField( {card: {...this.props.field, [name]: value}} ));
+        this.props.dispatch(changeField( {account: {...this.props.field, [name]: value}} ));
     }
 
     resetFields() {        
-        this.props.dispatch(resetFields( 'card' ));
+        this.props.dispatch(resetFields( 'account' ));
     }
 
     render() {
 
-        const { cardNumber } = this.props.field;
+        const { accountNumber } = this.props.field;
 
         return (
             <form className="form" onSubmit={this.handleSubmitForm}>
                 <div className="fieldBox">
-                    <label>Номер карты</label>
+                    <label>Номер счета</label>
                     <input 
                     type="text" 
-                    name="cardNumber" 
-                    value={cardNumber} 
-                    size={16}
+                    name="accountNumber" 
+                    value={accountNumber} 
+                    size={20}
                     onChange={this.handleChangeInput} 
                     autoComplete="off"/>
                 </div>
@@ -62,6 +62,6 @@ class FormCard extends React.Component {
     }
 }
 
-FormCard.displayName = 'FormCard';
+FormAccount.displayName = 'FormAccount';
 
-export default FormCard;
+export default FormAccount;

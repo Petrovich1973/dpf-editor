@@ -2,11 +2,9 @@ import React from 'react';
 
 import './App.less';
 
+import Management from './Management';
 import Header from './Header';
-
-import FormSearch from './FormSearch';
 import ResultList from './ResultList';
-
 import Footer from './Footer';
 
 class App extends React.Component {
@@ -19,11 +17,13 @@ class App extends React.Component {
         return (
             <div id="App">
 
+                <Management />
+
                 <Header />
 
-                <FormSearch formComponent={this.props.children} />
+                {this.props.children}
 
-                <ResultList/>
+                <ResultList />
 
                 <Footer />
                 

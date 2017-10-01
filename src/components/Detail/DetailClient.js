@@ -1,16 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchReviews } from '../../actions/reviewsActions';
-
-import './Detail.less';
-
-@connect((store) => {
-    return {
-        reviews: store.reviews.reviews
-    };
-})
-
 class DetailClient extends React.Component {
     constructor(props) {
         super(props);
@@ -35,10 +25,6 @@ class DetailClient extends React.Component {
         this.handleDoubleClickValue = this.handleDoubleClickValue.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
-    }
-
-    componentWillMount() {
-        this.props.dispatch(fetchReviews());
     }
 
     handleChangeCheckbox(e) {

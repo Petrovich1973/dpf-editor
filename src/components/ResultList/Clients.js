@@ -1,108 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchReviews } from '../../actions/reviewsActions';
+import { updateConfigClients } from '../../actions/clientsActions';
 
 import Pagination from '../Pagination';
 import DetailClient from '../Detail/DetailClient';
 
-import './ResultList.less';
-
 @connect((store) => {
     return {
-        reviews: store.reviews.reviews
+        clients: store.clients
     };
 })
 
 class Clients extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.initialState = {
-            listClients: [{
-                id: 1,
-                surname: 'Староборецкий',
-                name: 'Виктор',
-                patronymic: 'Петрович',
-                dul: 'Паспорт',
-                docNamber: '1234',
-                docSerial: '123456',
-                dateOfBirth: '19.03.1974'
-            },{
-                id: 2,
-                surname: 'Староборецкий',
-                name: 'Виктор',
-                patronymic: 'Владимирович',
-                dul: 'Паспорт',
-                docNamber: '2341',
-                docSerial: '654567',
-                dateOfBirth: '23.01.1977'
-            },{
-                id: 3,
-                surname: 'Староборецкий',
-                name: 'Виктор',
-                patronymic: 'Михайлович',
-                dul: 'Паспорт',
-                docNamber: '5654',
-                docSerial: '876543',
-                dateOfBirth: '29.11.1986'
-            },{
-                id: 4,
-                surname: 'Староборецкий',
-                name: 'Виктор',
-                patronymic: 'Семенович',
-                dul: 'Паспорт',
-                docNamber: '9876',
-                docSerial: '670211',
-                dateOfBirth: '31.10.1993'
-            },{
-                id: 5,
-                surname: 'Староборецкий',
-                name: 'Виктор',
-                patronymic: 'Андреевич',
-                dul: 'Паспорт',
-                docNamber: '551209',
-                docSerial: '671190',
-                dateOfBirth: '03.03.1980'
-            }],
-            config: {
-                status: 'list',
-                detail: false,
-                selected: null
-            }
-        };
+        this.state = this.initialState = {};
+
         this.handleClick = this.handleClick.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
         this.toList = this.toList.bind(this);
     }
 
-    componentWillMount() {
-        this.props.dispatch(fetchReviews());
-    }
-
     toList() {
-        this.setState({
-            config: {
-                ...this.initialState.config
-            }
-        });
+        let newConfig = {
+            status: 'list',
+            detail: false,
+            selected: null
+        }
+        this.props.dispatch(updateConfigClients(newConfig));
     }
 
     isParentHas(el) {
+        const { clients } = this.props;
+        if(clients.clients.length === 1) {
+            return false
+        }
         return el.parents('.bullet').length;
-
     }
 
     handleClick(e, m) {
         if(!window.getSelection().toString().length) {
             if( this.isParentHas($(e.target)) ) {
                 this.toList();
-            } else if(this.state.config.status === 'single') {
-                this.setState({
-                    config: {
-                        ...this.state.config,
-                        detail: !this.state.config.detail
-                    }
-                });
+            } else if(this.props.clients.config.status === 'single') {
+                let newConfig = {
+                    detail: !this.props.clients.config.detail
+                }
+                this.props.dispatch(updateConfigClients(newConfig));
             }
         }
     }
@@ -117,30 +62,37 @@ class Clients extends React.Component {
         } else if (document.selection) {
             document.selection.empty();
         }
-        this.setState({
-            config: {
-                ...this.state.config,
-                status: 'single',
-                selected: m.id
-            }
-        });
+        let newConfig = {
+            status: 'single',
+            selected: m.id
+        }
+        this.props.dispatch(updateConfigClients(newConfig));
     }
 
     updateList() {
-        const { listClients, config } = this.state;
+        const { clients } = this.props;
         const bullet = (
                 <div className="bullet">
                     <div className="box">
-                        <span className="pointer all">Список клиентов</span>
+                        {clients.clients.length > 1 ? <span className="pointer all">Список клиентов</span> : null}                        
                         <span className="pointer one">Клиент</span>
-                        { !config.detail ? <i className="angle fa fa-angle-right"/> : <i className="angle fa fa-angle-down"/> }
+                        { !clients.config.detail ? <i className="angle fa fa-angle-right"/> : <i className="angle fa fa-angle-down"/> }
                     </div>
                 </div>
             );
-        let list = listClients.map((m, i) => {
+        if(!clients.clients.length) {
+            return null
+        }
+        let list = clients.clients.map((m, i) => {
             return (
                 <tbody 
-                className={ config.selected ? config.selected === m.id ? config.detail ? 'single detailOpen' : 'single' : 'hideRow' : '' }
+                className={ clients.config.selected ? 
+                    clients.config.selected === m.id ? 
+                    clients.config.detail ? 
+                    'single detailOpen' : 
+                    'single' : 
+                    'hideRow' : 
+                    '' }
                 key={i}
                 onDoubleClick={ (e) => this.handleDoubleClick(e, m) }
                 onClick={ (e) => this.handleClick(e, m) }>
@@ -159,13 +111,13 @@ class Clients extends React.Component {
                 </tbody>
             )
         });
-        return listClients.length ? list : null;
+        return list;
 
     }  
 
     render() {
 
-        const { status, detail } = this.state.config;
+        const { status, detail } = this.props.clients.config;
 
         return (
             <div className="screen" id="Clients">

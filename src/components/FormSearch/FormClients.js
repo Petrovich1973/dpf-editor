@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 
 import InputMask from 'react-input-mask';
 
-import { fetchReviews } from "../../actions/reviewsActions";
-
-import './FormSearch.less';
+import { changeField, resetFields } from "../../actions/searchActions";
 
 @connect((store) => {
     return {
-        reviews: store.reviews.reviews
+        field: store.search.clients
     };
 })
 
@@ -33,17 +31,13 @@ class FormClients extends React.Component {
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    }
-
-    componentWillMount() {
-        this.props.dispatch(fetchReviews());
+        this.resetFields = this.resetFields.bind(this);
     }
 
     handleChangeDate(e) {
         var value = e.target.value;
         var newState = {
             mask: this.state.date.mask,
-            value: value,
             error: false
         }
         if (/^3/.test(value)) {
@@ -62,65 +56,101 @@ class FormClients extends React.Component {
             date: {
                 ...this.state.date, 
                 mask: newState.mask,
-                value: newState.value,
                 error: newState.error
             }
         });
+        this.props.dispatch(changeField( {clients: {...this.props.field, dateOfBirth: value}} ));
     }
 
     handleSubmitForm(e) {
         e.preventDefault();
-        console.log(e.form)
         return false;
     }
 
     handleChangeInput(e) {
         let name = e.target.name,
             value = e.target.value;
-        this.setState({
-            inputs: {
-                ...this.state.inputs,
-                [name]: value
-            }
-        })
+        this.props.dispatch(changeField( {clients: {...this.props.field, [name]: value}} ));
+    }
+
+    resetFields() {        
+        this.props.dispatch(resetFields( 'clients' ));
     }
 
     render() {
 
-        const { reviews } = this.props;
+        const {         
+            surname,
+            name,
+            patronymic,
+            docNamber,
+            docSerial,
+            dateOfBirth } = this.props.field;
 
         return (
             <form className="form" onSubmit={this.handleSubmitForm}>
                 <div className="fieldBox">
                     <label>Фамилия</label>
-                    <input type="text" name="name1" onChange={this.handleChangeInput} autoComplete="off"/>
+                    <input 
+                    type="text" 
+                    name="surname" 
+                    value={surname} 
+                    size={surname.length > 8 ? surname.length + 1 : null}
+                    onChange={this.handleChangeInput} 
+                    autoComplete="off"/>
                 </div>
 
                 <div className="fieldBox">
                     <label>Имя</label>
-                    <input type="text" name="name2" onChange={this.handleChangeInput} autoComplete="off"/>
+                    <input 
+                    type="text" 
+                    name="name" 
+                    value={name} 
+                    size={name.length > 8 ? name.length + 1 : null}
+                    onChange={this.handleChangeInput} 
+                    autoComplete="off"/>
                 </div>
 
                 <div className="fieldBox">
                     <label>Отчество</label>
-                    <input type="text" name="name3" onChange={this.handleChangeInput} autoComplete="off"/>
+                    <input 
+                    type="text" 
+                    name="patronymic" 
+                    value={patronymic} 
+                    size={patronymic.length > 8 ? patronymic.length + 1 : null}
+                    onChange={this.handleChangeInput} 
+                    autoComplete="off"/>
                 </div>
 
                 <div className="fieldBox">
                     <label>Серия</label>
-                    <InputMask name="name4" onChange={this.handleChangeInput} type="text" mask="9999" maskChar="_" style={{width: '60px'}} />
+                    <InputMask 
+                    type="text"
+                    name="docNamber"
+                    value={docNamber}
+                    onChange={this.handleChangeInput} 
+                    mask="9999" 
+                    maskChar="_" 
+                    style={{width: '60px'}} />
                 </div>
 
                 <div className="fieldBox">
                     <label>Номер</label>
-                    <InputMask name="name5" onChange={this.handleChangeInput} type="text" mask="999999" maskChar="_" style={{width: '76px'}} />
+                    <InputMask  
+                    type="text"
+                    name="docSerial" 
+                    value={docSerial} 
+                    onChange={this.handleChangeInput} 
+                    mask="999999" 
+                    maskChar="_" 
+                    style={{width: '76px'}} />
                 </div>
 
                 <div className="fieldBox">
                     <label>Дата рождения</label>
                     <InputMask
                     type="text"
-                    value={this.state.date.value}
+                    value={dateOfBirth}
                     onChange={this.handleChangeDate}
                     mask={this.state.date.mask}
                     formatChars={this.state.date.format}
@@ -134,7 +164,7 @@ class FormClients extends React.Component {
                 </div>
 
                 <div className="fieldBox btnReset">
-                    <button type="reset" title="Очистить поиск"><i className="fa fa-close fa-2x"/></button>
+                    <button type="button" title="Очистить поиск" onClick={this.resetFields}><i className="fa fa-close fa-2x"/></button>
                 </div>
             </form>
         );
